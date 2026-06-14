@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const logger = require('./logger');
-const { MongoMemoryServer } = require('mongodb-memory-server');
 const Category = require('../models/Category');
 const Product = require('../models/Product');
 
@@ -162,6 +161,7 @@ const connectDB = async () => {
 
     if (!mongoUri || mongoUri === 'memory' || mongoUri.includes('<username>')) {
       logger.info('Starting MongoDB Memory Server...');
+      const { MongoMemoryServer } = require('mongodb-memory-server');
       mongoServer = await MongoMemoryServer.create();
       mongoUri = mongoServer.getUri();
       process.env.MONGO_URI = mongoUri;
